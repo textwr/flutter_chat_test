@@ -15,11 +15,13 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   }
 
   Future<void> _onLoginRequested(LoginRequested event, Emitter<AuthenticationState> emit) async {
-    emit(AuthenticationLoading());
+    //emit(AuthenticationLoading());
+    print("_onLoginRequested");
     try {
       await _authenticationRepository.login(event.username, event.password);
       emit(AuthenticationAuthenticated());
     } catch (e) {
+      print(false);
       emit(AuthenticationFailure(e.toString()));
     }
   }

@@ -20,9 +20,11 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: BlocListener<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
+          print("current status: ${state}");
           if (state is AuthenticationAuthenticated) {
             Navigator.of(context).pushReplacementNamed('/home');
           } else if (state is AuthenticationFailure) {
+            print("login_failed");
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Login Failed: ${state.error}')),
             );
