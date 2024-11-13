@@ -7,7 +7,6 @@ class AuthenticationRepository {
 
   Future<void> login(String username, String password) async {
     try {
-      print("login_try");
       Response response = await _dio.post(
         'http://hitto.synology.me:9000/login',
         data: {

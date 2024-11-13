@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../repositories/authentication_repository.dart';
@@ -15,14 +17,19 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   }
 
   Future<void> _onLoginRequested(LoginRequested event, Emitter<AuthenticationState> emit) async {
-    //emit(AuthenticationLoading());
+    emit(AuthenticationLoading());
     print("_onLoginRequested");
+    print(state);
     try {
+      print("try");
       await _authenticationRepository.login(event.username, event.password);
       emit(AuthenticationAuthenticated());
     } catch (e) {
-      print(false);
-      emit(AuthenticationFailure(e.toString()));
+      await Future.delayed(
+          const Duration(seconds: 2)
+      );
+    print("catch");
+    emit(AuthenticationFailure(e.toString()));
     }
   }
 
